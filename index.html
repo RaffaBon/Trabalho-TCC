@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz de Segurança Digital</title>
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+  <header>
+    <div class="top-bar">
+      <div class="buttons-top">
+        <button class="top-btn">Painel</button>
+        <button class="top-btn">Ranking</button>
+        <button class="top-btn">Estatísticas</button>
+        <button id="restartQuiz" title="Reiniciar Quiz">⟲</button>
+        <button id="themeToggle" title="Trocar Tema">🌙</button>
+      </div>
+      <div class="score-info">
+        <span>Pontuação: <span id="scoreValue">0 pts</span></span>
+        <progress id="progressBar" max="5" value="0"></progress>
+        <span>Total de Perguntas: <span id="totalQuestions">5</span></span>
+        <span>Acertos: <span id="correctAnswers">0</span></span>
+      </div>
+    </div>
+  </header>
+
+  <main id="quizArea">
+    <section id="questionBox">
+      <h2 id="questionTitle">Pergunta 1</h2>
+      <p id="questionText"></p>
+      <div id="answersContainer"></div>
+      <button id="ttsBtn">🔊 Ouvir Pergunta</button>
+    </section>
+  </main>
+
+  <script src="JS/script.js"></script>
+</body>
+</html>
