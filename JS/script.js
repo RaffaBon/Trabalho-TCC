@@ -3,74 +3,74 @@ document.addEventListener("DOMContentLoaded", () => {
   const soundWrong = new Audio("sounds/erro.mp3");
   const soundFinish = new Audio("sounds/fim.mp3");
 
-  // Narrador começa desativado por padrão
   let ttsEnabled = false;
   const savedTts = localStorage.getItem("ttsEnabled");
   if (savedTts !== null) ttsEnabled = savedTts === "true";
 
   const questions = [
     {
-      question: "Qual destas é uma senha realmente segura?",
-      answers: ["123456", "meunome123", "C@n3c0$2025!", "Data de aniversário"],
+      question: "Qual destas senhas é mais segura para proteger sua conta?",
+      answers: ["Números aleatórios", "Seu nome e algum número", "Uma palavra aleatória com símbolos e números", "Sua data de nascimento"],
       correctIndex: 2,
-      explanation: "Senhas fortes usam letras maiúsculas e minúsculas, números e símbolos."
+      explanation: "Senhas seguras misturam letras, números e símbolos (exemplo: C@fé!2025). Evite nomes ou datas pessoais."
     },
     {
-      question: "Você recebe um e-mail pedindo para atualizar seus dados bancários. O que fazer?",
-      answers: ["Clicar no link do e-mail", "Responder com suas informações", "Ignorar e excluir o e-mail", "Encaminhar para todos os contatos"],
+      question: "Você recebe um e-mail dizendo que sua conta bancária será bloqueada e pedindo seus dados. O que fazer?",
+      answers: ["Clicar no link para ver o que é", "Perguntar se é seguro", "Apagar o e-mail sem abrir", "Mandar para algum amigo"],
       correctIndex: 2,
-      explanation: "Instituições sérias nunca pedem informações sensíveis por e-mail. Esse tipo de mensagem é golpe (phishing)."
+      explanation: "Bancos nunca pedem dados pessoais por e-mail. E-mails assim geralmente são golpes."
     },
     {
-      question: "O que significa 'phishing'?",
-      answers: ["Vírus que formata o computador", "Roubo de informações se passando por algo confiável", "Programa de segurança", "Erro no sistema"],
+      question: "Alguém envia uma mensagem pedindo sua senha se passando por banco ou loja. O que é isso?",
+      answers: ["Um tipo de virus", "Um golpista", "Uma atualização de cadastro", "Um erro do site"],
       correctIndex: 1,
-      explanation: "Phishing é uma tentativa de enganar o usuário e roubar dados pessoais, fingindo ser algo legítimo."
+      explanation: "Esse tipo de golpe tenta se passar por alguém confiável para roubar senhas ou dados pessoais."
     },
     {
-      question: "Por que é importante manter aplicativos atualizados?",
-      answers: ["Para ter novas cores", "Para corrigir falhas de segurança", "Para gastar mais internet", "Para ocupar mais espaço no celular"],
+      question: "Por que é importante atualizar o celular ou computador?",
+      answers: ["Para deixar ele mais bonito", "Para corrigir problemas", "Para ter acesso a internet", "Para poder instalar mais aplicativos"],
       correctIndex: 1,
-      explanation: "Atualizações corrigem vulnerabilidades que podem ser exploradas por hackers."
+      explanation: "Atualizações corrigem falhas que podem ser usadas por pessoas mal-intencionadas e melhoram os aplicativos."
     },
     {
-      question: "Qual é um sinal de que um site é seguro?",
-      answers: ["Tem cadeado na barra de endereço", "Tem muitas propagandas", "Abre várias janelas pop-up", "Pede senha logo ao entrar"],
+      question: "Como saber se um site é seguro para digitar suas senhas?",
+      answers: ["Tem um cadeado na barra de endereços", "Tem muitas propagandas", "Pede acesso as senhas da sua conta", "Pede suas informações pessoais para entrar"],
       correctIndex: 0,
-      explanation: "O cadeado indica que o site usa HTTPS, protegendo a troca de dados entre você e o servidor."
+      explanation: "O cadeado indica que o site protege seus dados enquanto você navega."
     },
     {
-      question: "O que é autenticação de dois fatores (2FA)?",
-      answers: ["Senha que deve ser trocada todo mês", "Verificação com duas etapas para maior segurança", "Pergunta secreta apenas", "Usar dois dispositivos diferentes"],
+      question: "O que é a verificação em duas etapas?",
+      answers: ["Trocar senha todo mês", "Receber um código extra no celular", "Uma pergunta secreta", "Usar a mesma conta em outros dispositivos"],
       correctIndex: 1,
-      explanation: "2FA exige uma segunda forma de verificação, como um código no celular, para garantir mais segurança."
+      explanation: "Além da senha, você precisa de um código enviado para seu celular para aumentar a segurança."
     },
     {
-      question: "Qual prática ajuda a evitar golpes em redes sociais?",
-      answers: ["Aceitar todos pedidos de amizade", "Não clicar em links suspeitos", "Compartilhar senhas com amigos", "Usar a mesma senha em todos sites"],
+      question: "Como se proteger de golpes em redes sociais?",
+      answers: ["Aceitar todos pedidos de amizade", "Não clicar em links suspeitos", "Abrir o site que me disseram ser sobre proteger a conta", "Usar senhas seguras nos sites"],
       correctIndex: 1,
-      explanation: "Links suspeitos podem conter vírus ou redirecionar para páginas falsas que roubam informações."
+      explanation: "Links suspeitos podem instalar vírus ou levar a sites falsos que roubam informações."
     },
     {
-      question: "O que você deve fazer se receber um anexo desconhecido por e-mail?",
-      answers: ["Abrir imediatamente", "Responder pedindo confirmação", "Não abrir e excluir o e-mail", "Encaminhar para colegas"],
+      question: "O que fazer se receber um anexo desconhecido por e-mail?",
+      answers: ["Abrir para ver", "Perguntar ao remetente antes de abrir", "Não abrir e apagar o e-mail", "Encaminhar para colegas"],
       correctIndex: 2,
-      explanation: "Anexos desconhecidos podem conter vírus. O ideal é apagar o e-mail sem abrir."
+      explanation: "Anexos desconhecidos podem ter vírus. O melhor é apagar o e-mail sem abrir."
     },
     {
-      question: "Por que não é seguro usar a mesma senha em vários sites?",
-      answers: ["Porque é difícil de lembrar", "Se um site for hackeado, todos os outros estão em risco", "Porque os navegadores não gostam", "Não existe problema"],
+      question: "Você deve usar a mesma senha em vários sites?",
+      answers: ["Sim, é mais fácil de lembrar", "Não, se descobrirem as outras contas correm risco", "Não, porque eu não uso senhas", "Sim, não tem problema nenhum"],
       correctIndex: 1,
-      explanation: "Se um site for comprometido, os hackers podem tentar usar a mesma senha em outras contas suas."
+      explanation: "Usar a mesma senha facilita que hackers acessem suas outras contas se uma for invadida."
     },
     {
-      question: "O que é ransomware?",
-      answers: ["Um tipo de vírus que bloqueia arquivos e pede resgate", "Um antivírus moderno", "Atualização de sistema", "Mensagem de erro do Windows"],
+      question: "Você abre um arquivo e ele trava o computador pedindo dinheiro para liberar seus documentos. O que é isso?",
+      answers: ["Um vírus perigoso", "Uma atualização do sistema", "Mensagem de erro", "Um aviso do antivírus"],
       correctIndex: 0,
-      explanation: "Ransomware criptografa seus arquivos e exige pagamento (geralmente em criptomoedas) para liberá-los."
+      explanation: "Esse vírus é chamado ransomware. Ele bloqueia seus arquivos e tenta extorquir dinheiro. Ter cópias de segurança ajuda a se proteger."
     }
   ];
 
+  const questionBox = document.getElementById("questionBox");
   const questionTitle = document.getElementById("questionTitle");
   const questionText = document.getElementById("questionText");
   const answersContainer = document.getElementById("answersContainer");
@@ -81,7 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const restartBtn = document.getElementById("restartQuiz");
   const themeToggle = document.getElementById("themeToggle");
 
-  // Botão de narrador
   const ttsToggleBtn = document.createElement("button");
   ttsToggleBtn.textContent = `Narrador: ${ttsEnabled ? "ON" : "OFF"}`;
   ttsToggleBtn.style.marginLeft = "10px";
@@ -90,6 +89,16 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentQuestion = 0;
   let score = 0;
   let wrongAnswers = [];
+
+  function fadeOutIn(callback) {
+    questionBox.classList.add("fade-out");
+    setTimeout(() => {
+      callback();
+      questionBox.classList.remove("fade-out");
+      questionBox.classList.add("fade-in");
+      setTimeout(() => questionBox.classList.remove("fade-in"), 400);
+    }, 400);
+  }
 
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -114,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     ttsBtn.style.display = "inline-block";
-    loadQuestion();
+    fadeOutIn(loadQuestion);
   }
 
   progressBar.max = questions.length;
@@ -123,8 +132,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const q = questions[currentQuestion];
     questionTitle.textContent = `Pergunta ${currentQuestion + 1}`;
     questionText.textContent = q.question;
-
     answersContainer.innerHTML = "";
+
     q.answers.forEach((answer, i) => {
       const btn = document.createElement("button");
       btn.className = "answer-btn";
@@ -162,43 +171,90 @@ document.addEventListener("DOMContentLoaded", () => {
       if (ttsEnabled) speak("Resposta incorreta.", nextQuestion);
     }
 
-    // ✅ Atualiza a barra de progresso toda vez que responder
     progressBar.value = currentQuestion + 1;
-
-    if (!ttsEnabled) setTimeout(nextQuestion, 1000);
+    if (!ttsEnabled) setTimeout(nextQuestion, 900);
   }
 
   function nextQuestion() {
     currentQuestion++;
-    if (currentQuestion < questions.length) loadQuestion();
-    else showResults();
+    if (currentQuestion < questions.length) fadeOutIn(loadQuestion);
+    else fadeOutIn(showResults);
   }
 
   function showResults() {
     questionTitle.textContent = "🎉 Fim do Quiz!";
-    questionText.innerHTML = `Você acertou <strong>${score}</strong> de <strong>${questions.length}</strong> perguntas.<br><br>`;
+    questionText.textContent = `Você acertou ${score} de ${questions.length} perguntas.`;
     answersContainer.innerHTML = "";
     playSound(soundFinish);
 
-    const resultBox = document.createElement("div");
-    resultBox.id = "gabarito";
-    resultBox.innerHTML = "<h3>💡 Explicações:</h3>";
+    if (wrongAnswers.length === 0) {
+      const congrats = document.createElement("p");
+      congrats.textContent = "Parabéns! Você acertou todas as respostas!";
+      congrats.style.fontSize = "1.3rem";
+      congrats.style.marginTop = "20px";
+      answersContainer.appendChild(congrats);
+    } else {
+      const explanationContainer = document.createElement("div");
+      explanationContainer.className = "explanation";
 
-    questions.forEach((q, i) => {
-      const p = document.createElement("p");
-      const acertou = !wrongAnswers.some(w => w.pergunta === q.question);
-      p.innerHTML = `<strong>${i + 1}. ${q.question}</strong><br>
-        <span style="color:${acertou ? '#28a745' : '#dc3545'}">
-        ${acertou ? "✅ Correta" : "❌ Incorreta"}</span><br>
-        <em>${q.explanation}</em><br><br>`;
-      resultBox.appendChild(p);
-    });
+      let currentCard = 0;
 
-    answersContainer.appendChild(resultBox);
+      const cardElement = document.createElement("div");
+      cardElement.className = "explanation-card";
+      explanationContainer.appendChild(cardElement);
+
+      const navDiv = document.createElement("div");
+      navDiv.className = "nav-buttons";
+
+      const prevBtn = document.createElement("button");
+      prevBtn.textContent = "←";
+      prevBtn.className = "nav-btn";
+
+      const nextBtn = document.createElement("button");
+      nextBtn.textContent = "→";
+      nextBtn.className = "nav-btn";
+
+      const indexText = document.createElement("span");
+      indexText.className = "card-index";
+
+      navDiv.appendChild(prevBtn);
+      navDiv.appendChild(indexText);
+      navDiv.appendChild(nextBtn);
+      explanationContainer.prepend(navDiv);
+
+      function renderCard(index) {
+        const w = wrongAnswers[index];
+        cardElement.innerHTML = `
+          <strong>Pergunta:</strong> ${w.pergunta}<br>
+          <strong>Resposta certa:</strong> ${w.correta}<br>
+          <strong>Explicação:</strong> ${w.explicacao}
+        `;
+        indexText.textContent = `${index + 1} / ${wrongAnswers.length}`;
+        prevBtn.disabled = index === 0;
+        nextBtn.disabled = index === wrongAnswers.length - 1;
+      }
+
+      prevBtn.onclick = () => {
+        if (currentCard > 0) {
+          currentCard--;
+          renderCard(currentCard);
+        }
+      };
+
+      nextBtn.onclick = () => {
+        if (currentCard < wrongAnswers.length - 1) {
+          currentCard++;
+          renderCard(currentCard);
+        }
+      };
+
+      renderCard(currentCard);
+      answersContainer.appendChild(explanationContainer);
+    }
 
     const restartBtnFinal = document.createElement("button");
-    restartBtnFinal.textContent = "🔁 Jogar Novamente";
-    restartBtnFinal.style.marginTop = "20px";
+    restartBtnFinal.textContent = "🔁 Jogar Novamente 🔁";
+    restartBtnFinal.className = "restart-final";
     restartBtnFinal.onclick = resetQuiz;
     answersContainer.appendChild(restartBtnFinal);
 
@@ -223,9 +279,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (callback) callback();
   }
 
-  // Eventos principais
   restartBtn.addEventListener("click", resetQuiz);
-
   ttsBtn.addEventListener("click", () => {
     if (currentQuestion < questions.length && ttsEnabled)
       speak(questions[currentQuestion].question);
