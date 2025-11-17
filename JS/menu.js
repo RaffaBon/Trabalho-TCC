@@ -3,14 +3,15 @@ const themeToggle = document.getElementById("themeToggle");
 
 // Vai para o quiz
 startBtn.addEventListener("click", () => {
-  window.location.href = "index.html"; // coloque o nome correto do arquivo do quiz
+  window.location.href = "../index.html"; // Altere o caminho se necessário
 });
 
 // Troca de tema
 themeToggle.addEventListener("click", () => {
   document.body.classList.toggle("dark");
-  localStorage.setItem("quizTheme", document.body.classList.contains("dark") ? "dark" : "light");
-  themeToggle.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
+  const isDark = document.body.classList.contains("dark");
+  localStorage.setItem("quizTheme", isDark ? "dark" : "light");
+  themeToggle.textContent = isDark ? "☀️" : "🌙";
 });
 
 // Carrega tema salvo
